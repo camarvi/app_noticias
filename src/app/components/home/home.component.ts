@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
+// Importar servicio
+import { NoticiasService } from 'src/app/services/noticias.service';
+
+
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -7,7 +12,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  listadoNoticias : any[] = [];
+  
+
+
+  constructor(private NoticiasServicie : NoticiasService) { 
+
+    this.NoticiasServicie.getTodasNoticias()
+        .subscribe((data:any)=>{
+              this.listadoNoticias = data;
+              console.log(this.listadoNoticias);
+        });
+  }
 
   ngOnInit() {
   }
